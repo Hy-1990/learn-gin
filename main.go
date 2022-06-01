@@ -5,6 +5,8 @@ import (
 	"fmt"
 	"github.com/gin-gonic/gin"
 	"io/ioutil"
+	"learn-gin/config/log"
+	"learn-gin/config/toml"
 	"net/http"
 )
 
@@ -25,6 +27,10 @@ func parseJson(a string) Result {
 }
 
 func main() {
+	log.InitLogger(toml.GetConfig().Log.Path, toml.GetConfig().Log.Level)
+	log.Logger.Info("hahahah")
+	log.Logger.Info("config", log.Any("config", toml.GetConfig()))
+
 	router := gin.Default()
 	router.GET("/", func(context *gin.Context) {
 		context.String(http.StatusOK, "hello world")

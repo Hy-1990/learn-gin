@@ -1,0 +1,5 @@
+appName = "learn-gin"
+
+[log]
+level = "debug"
+path = "logs/learn.log"
