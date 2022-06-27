@@ -8,12 +8,22 @@ import (
 type TomlConfig struct {
 	AppName string
 	Log     LogConfig
+	Mysql   MysqlConfig
 }
 
 // 日志保存地址
 type LogConfig struct {
 	Path  string
 	Level string
+}
+
+// 日志保存地址
+type MysqlConfig struct {
+	Host     string
+	User     string
+	Password string
+	DbName   string
+	Port     int64
 }
 
 var c TomlConfig

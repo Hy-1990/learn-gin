@@ -1,5 +1,6 @@
 package services
 
 var (
-	TestServ = &Test{}
+	TestServ    = &Test{}
+	StudentServ = &StudentImpl{}
 )

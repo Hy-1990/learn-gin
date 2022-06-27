@@ -1,5 +1,6 @@
 package controllers
 
 var (
-	TestCtrl = &TestController{}
+	TestCtrl    = &TestController{}
+	StudentCtrl = &StudentController{}
 )

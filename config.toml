@@ -3,3 +3,11 @@ appName = "learn-gin"
 [log]
 level = "debug"
 path = "logs/learn.log"
+
+[mysql]
+host = "xxxxxxx"
+user = "root"
+password = "xxxxx"
+dbName = "test-c"
+port = 3306
+
