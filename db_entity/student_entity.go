@@ -20,11 +20,11 @@ func (Student) TableName() string {
 	return "student"
 }
 
-//// 更新表更新时间为当前时间
-//func (u *Student) BeforeUpdate(tx *gorm.DB) error {
-//	tx.Statement.SetColumn("update_time", time.Now())
-//	return nil
-//}
+// 更新表更新时间为当前时间
+func (u *Student) BeforeUpdate(tx *gorm.DB) error {
+	tx.Statement.SetColumn("update_time", time.Now())
+	return nil
+}
 
 // 新增表更新时间为当前时间
 func (v *Student) BeforeCreate(tx *gorm.DB) error {

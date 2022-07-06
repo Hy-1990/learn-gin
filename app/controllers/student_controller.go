@@ -60,3 +60,48 @@ func (s StudentController) DeleteById(context *gin.Context) {
 	_rsp := services.StudentServ.DeleteById(int32(_a))
 	context.JSON(http.StatusOK, _rsp)
 }
+
+//查询所有学生简述
+func (s StudentController) SelectOutline(context *gin.Context) {
+	log.Logger.Info("SelectOutline接口")
+	_rsp := services.StudentServ.SelectOutline()
+	context.JSON(http.StatusOK, _rsp)
+}
+
+//使用exec进行数据更新
+func (s StudentController) UpdateExec(context *gin.Context) {
+	log.Logger.Info("UpdateExec接口")
+	var studentUpdateExecReq req.StudentUpdateExecReq
+	if err := context.ShouldBindJSON(&studentUpdateExecReq); err != nil {
+		log.Logger.Panic("参数异常")
+	}
+
+	if _, err := json.Marshal(studentUpdateExecReq); err != nil {
+		log.Logger.Panic("参数解析异常")
+	}
+	_rsp := services.StudentServ.UpdateExec(studentUpdateExecReq)
+	context.JSON(http.StatusOK, _rsp)
+}
+
+//使用命名参数查询
+func (s StudentController) SelectByNamespace(context *gin.Context) {
+	log.Logger.Info("SelectByNamespace接口")
+	_age := context.Query("age")
+	_a, _ := strconv.ParseInt(_age, 10, 64)
+	_rsp := services.StudentServ.SelectByNamespace(int64(_a))
+	context.JSON(http.StatusOK, _rsp)
+}
+
+//获取sql语句
+func (s StudentController) GetSql(context *gin.Context) {
+	log.Logger.Info("获取sql语句接口")
+	_rsp := services.StudentServ.GetSql()
+	context.JSON(http.StatusOK, _rsp)
+}
+
+//测试row遍历方式
+func (s StudentController) TestRow(context *gin.Context) {
+	log.Logger.Info("测试row遍历方式接口")
+	_rsp := services.StudentServ.TestRow()
+	context.JSON(http.StatusOK, _rsp)
+}
