@@ -2,6 +2,7 @@ package services
 
 import (
 	"database/sql"
+	"errors"
 	"fmt"
 	"gorm.io/gorm"
 	"learn-gin/app/constants"
@@ -22,6 +23,7 @@ type StudentService interface {
 	UpdateExec(req req.StudentUpdateExecReq)
 	SelectByNamespace(age int64)
 	TestRow()
+	TestError()
 }
 
 type StudentImpl struct {
@@ -119,7 +121,6 @@ func (t StudentImpl) TestRow() rsp.ResponseMsg {
 	)
 	_rows, _err := _db.Raw("select id,name,age from student where del_flag = 0").Rows()
 	if _err != nil {
-
 		log.Logger.Panic("执行sql异常", log.Any("error", _err.Error()))
 	}
 	defer _rows.Close()
@@ -127,5 +128,20 @@ func (t StudentImpl) TestRow() rsp.ResponseMsg {
 		_rows.Scan(&_id, &_name, &_age)
 		fmt.Printf("student -> id=%v,name=%v,age=%v\n", _id, _name, _age)
 	}
+	return *rsp.SuccessMsg("测试成功")
+}
+
+//测试gorm异常
+func (t StudentImpl) TestError() rsp.ResponseMsg {
+	log.Logger.Info("测试gorm异常")
+	_db := mysql.GetDB()
+	var _student db_entity.Student
+	if _err := _db.Where("del_flag = 1").First(&_student).Error; _err != nil {
+		if errors.Is(_err, gorm.ErrRecordNotFound) {
+			fmt.Println("error is ErrRecordNotFound")
+		}
+		log.Logger.Panic("error -> ", log.Any("error", _err))
+	}
+	log.Logger.Debug("student -> ", log.Any("student", _student))
 	return *rsp.SuccessMsg("测试成功")
 }

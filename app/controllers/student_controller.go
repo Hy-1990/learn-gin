@@ -105,3 +105,10 @@ func (s StudentController) TestRow(context *gin.Context) {
 	_rsp := services.StudentServ.TestRow()
 	context.JSON(http.StatusOK, _rsp)
 }
+
+//测试gorm异常
+func (s StudentController) TestError(context *gin.Context) {
+	log.Logger.Info("测试gorm异常接口")
+	_rsp := services.StudentServ.TestError()
+	context.JSON(http.StatusOK, _rsp)
+}
