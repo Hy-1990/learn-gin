@@ -24,6 +24,7 @@ type StudentService interface {
 	SelectByNamespace(age int64)
 	TestRow()
 	TestError()
+	TestTransaction()
 }
 
 type StudentImpl struct {
@@ -143,5 +144,23 @@ func (t StudentImpl) TestError() rsp.ResponseMsg {
 		log.Logger.Panic("error -> ", log.Any("error", _err))
 	}
 	log.Logger.Debug("student -> ", log.Any("student", _student))
+	return *rsp.SuccessMsg("测试成功")
+}
+
+//测试事务效果
+func (t StudentImpl) TestTransaction() rsp.ResponseMsg {
+	log.Logger.Info("测试事务效果")
+	_db := mysql.GetDB()
+	_db.Transaction(func(tx *gorm.DB) error {
+		tx.Create(&db_entity.Student{
+			Name: "张飞", Age: 200,
+		})
+		var _student db_entity.Student
+		if _err := tx.Where("del_flag = 1").First(&_student).Error; _err != nil {
+			return _err
+		}
+		fmt.Println(_student)
+		return nil
+	})
 	return *rsp.SuccessMsg("测试成功")
 }
