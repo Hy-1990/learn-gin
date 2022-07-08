@@ -112,3 +112,10 @@ func (s StudentController) TestError(context *gin.Context) {
 	_rsp := services.StudentServ.TestError()
 	context.JSON(http.StatusOK, _rsp)
 }
+
+//测试事务效果
+func (s StudentController) TestTransaction(context *gin.Context) {
+	log.Logger.Info("测试事务效果")
+	_rsp := services.StudentServ.TestTransaction()
+	context.JSON(http.StatusOK, _rsp)
+}

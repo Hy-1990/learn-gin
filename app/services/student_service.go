@@ -15,16 +15,16 @@ import (
 )
 
 type StudentService interface {
-	AddStudent(req *req.StudentAddReq)
-	AddOrUpdateStudent(student *db_entity.Student)
-	SelectAll()
-	DeleteById(id int32)
-	SelectOutline()
-	UpdateExec(req req.StudentUpdateExecReq)
-	SelectByNamespace(age int64)
-	TestRow()
-	TestError()
-	TestTransaction()
+	AddStudent(req *req.StudentAddReq) rsp.ResponseMsg
+	AddOrUpdateStudent(student *db_entity.Student) rsp.ResponseMsg
+	SelectAll() rsp.ResponseMsg
+	DeleteById(id int32) rsp.ResponseMsg
+	SelectOutline() rsp.ResponseMsg
+	UpdateExec(req req.StudentUpdateExecReq) rsp.ResponseMsg
+	SelectByNamespace(age int64) rsp.ResponseMsg
+	TestRow() rsp.ResponseMsg
+	TestError() rsp.ResponseMsg
+	TestTransaction() rsp.ResponseMsg
 }
 
 type StudentImpl struct {

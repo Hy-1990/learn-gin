@@ -16,4 +16,5 @@ func StudentRouter(r *gin.Engine) {
 	r.GET("/student/getSql", controllers.StudentCtrl.GetSql)
 	r.GET("/student/testRow", controllers.StudentCtrl.TestRow)
 	r.GET("/student/testError", controllers.StudentCtrl.TestError)
+	r.GET("/student/testTransaction", controllers.StudentCtrl.TestTransaction)
 }

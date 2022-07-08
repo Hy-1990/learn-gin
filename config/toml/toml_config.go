@@ -9,6 +9,7 @@ type TomlConfig struct {
 	AppName string
 	Log     LogConfig
 	Mysql   MysqlConfig
+	Redis   RedisConfig
 }
 
 // 日志保存地址
@@ -17,13 +18,18 @@ type LogConfig struct {
 	Level string
 }
 
-// 日志保存地址
+// Mysql配置
 type MysqlConfig struct {
 	Host     string
 	User     string
 	Password string
 	DbName   string
 	Port     int64
+}
+
+type RedisConfig struct {
+	Urls     []string
+	Password string
 }
 
 var c TomlConfig

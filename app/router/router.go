@@ -7,4 +7,6 @@ func InitRouter(r *gin.Engine) {
 	TestRouter(r)
 	// 学生路由
 	StudentRouter(r)
+	// 缓存路由
+	RedisRouter(r)
 }
